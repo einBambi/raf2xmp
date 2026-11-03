@@ -1,5 +1,7 @@
 # raf2xmp
 
+English: [README.en.md](README.en.md)
+
 Liest die Rezepte aus Fujifilm-RAFs (Filmsimulation, Farbe, Lichter und Schatten, Korn und so weiter) und legt daneben Sidecars
 (.xmp) für Adobe Lightroom an, damit ein RAF dort dem JPG aus der Kamera nahekommt. Eine Annäherung, kein exaktes Abbild.
 
