@@ -1,0 +1,27 @@
+# macOS und Editoren
+.DS_Store
+.idea/
+.vscode/
+
+# Python und Node
+__pycache__/
+*.pyc
+node_modules/
+
+# Ausgabe von tools/build.py, laesst sich jederzeit neu bauen
+dist/
+*.log
+
+# Zugangsdaten
+.env
+.env.*
+
+# Falls doch mal ausversehen eine echte RAF oder XMP im Ordner liegt, soll git sie nicht mitnehmen.
+# Erlaubt sind nur die erfundenen Pruefstuecke (tools/preflight.sh prueft das ausserdem)
+*.RAF
+*.raf
+*.xmp
+*.jpg
+*.jpeg
+*.dng
+!/test/fixtures/SYNTH*.RAF
