@@ -203,7 +203,8 @@ from the files (checksums, counters, camera or lens names): they must not leave 
 
 Ko-fi stays a voluntary tip with nothing in return: no payment feature, no preferred support, no advertising, no locked updates.
 Only that way does the project remain free software without commercial activity (EU Cyber Resilience Act, new product liability
-law), and the sentence "voluntary, without consideration" on the page stays true.
+law), and the sentence "Spenden sind freiwillig und keine Gegenleistung" (donations are voluntary and no consideration) on the page
+stays true.
 
 ## Trademarks
 

@@ -11,7 +11,6 @@ const plural = (n, one, many) => (n === 1 ? one : many);
 const sections = ["start", "busy", "plan", "run", "result"];
 const MAX_ROWS = 2000; // mehr Zeilen je Gruppe malt die Seite nicht, der Rest steht als Zahl da
 const OPEN_MAX = 20; // Gruppen mit mehr Zeilen sind zunaechst zugeklappt, sonst waere die Ergebnisseite viele Bildschirme lang
-const ASIDE = "freiwillig, ohne Gegenleistung";
 
 let source = null; // {rescan(): Promise<Folder[]>, writable, partial}
 let folders = null;
@@ -23,7 +22,6 @@ let forceZip = false; // ZIP statt Schreiben in den Ordner: per Schalter gewaehl
 // Der Fokus geht immer an eine Stelle des neuen Abschnitts, sonst springt die Tastatur an die Stelle des verschwundenen Knopfs
 function show(name) {
   for (const s of sections) $(s).hidden = s !== name;
-  $("aside").textContent = ASIDE;
   if (name === "start") say("");
   const head = $(name).querySelector("h2") || (name === "start" ? $("choose") : null);
   if (head) head.focus({ preventScroll: false });
@@ -265,7 +263,7 @@ function finish(sum, items, sink) {
   for (const [model, n] of sum.lookless) {
     call.append(note(nf.format(n) + " " + plural(n, "Foto", "Fotos") + " von der " + model + " " + plural(n, "bekam", "bekamen") +
       " nur das Basisprofil, weil die Kennungen der Looks (Classic Neg, Nostalgic Neg, Bleach Bypass, Sepia) für diese Kamera nicht eingebaut sind. " +
-      "So behebst du das: In Lightroom ein Foto dieser Kamera auf den Look stellen und die Metadaten speichern, dann hier mit „Vorhandene .xmp ersetzen“ noch einmal starten. Die Seite liest die Kennung aus dieser .xmp."));
+      "Abhilfe: In Lightroom ein Foto dieser Kamera auf den Look stellen und die Metadaten speichern, dann hier mit „Vorhandene .xmp ersetzen“ noch einmal starten. Die Seite liest die Kennung aus dieser .xmp."));
   }
   const writeFails = items.filter((i) => i.write).length;
   if (!zip && writeFails) {
@@ -297,7 +295,6 @@ function finish(sum, items, sink) {
   }
 
   show("result");
-  if (sum.made) $("aside").textContent = "Zeit gespart? Freiwillig, ohne Gegenleistung.";
   say(head + ". " + $("result-sub").textContent);
 }
 

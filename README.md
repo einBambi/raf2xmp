@@ -200,7 +200,7 @@ den Dateien abgeleitet sind (Prüfsummen, Zähler, Kamera- oder Objektivnamen), 
 
 Ko-fi bleibt ein freiwilliges Trinkgeld ohne Gegenleistung: keine Bezahlfunktion, kein bevorzugter Support, keine Werbung, keine
 gesperrten Updates. Nur so bleibt das Projekt freie Software ohne gewerbliche Tätigkeit (EU-Cyberresilienzgesetz, neues
-Produkthaftungsrecht), und der Satz „freiwillig, ohne Gegenleistung“ auf der Seite stimmt.
+Produkthaftungsrecht), und der Satz „Spenden sind freiwillig und keine Gegenleistung“ auf der Seite stimmt.
 
 ## Hinweise zu Marken
 
