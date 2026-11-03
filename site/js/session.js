@@ -30,7 +30,7 @@ const FILM_LABEL = {
 };
 export const filmLabel = (key) => (key ? FILM_LABEL[key] || key : "Filmsimulation unbekannt");
 
-// Die Seite hiess zuerst fuji2xmp, und das Python-Werkzeug schreibt die alte Kennung bis heute. Beide gelten als eigene.
+// Das Projekt hiess zuerst fuji2xmp, aeltere XMPs tragen noch diese Kennung. Beide gelten als eigene.
 const OURS = ['x:xmptk="raf2xmp"', 'x:xmptk="fuji2xmp"'];
 const latin1 = (u8) => String.fromCharCode(...u8);
 
@@ -78,7 +78,7 @@ export function scanSummary(folders) {
 // Wie die XMPs aus dem ZIP neben die RAFs kommen. Liegen sie in Unterordnern, droht beim Kopieren das Ersetzen ganzer Ordner.
 export function zipHint(items, { safari = false } = {}) {
   const nested = items.some((i) => i.kind === "ok" && i.folder);
-  const lead = safari ? "Safari entpackt das ZIP meist schon selbst. " : "";
+  const lead = safari ? "Safari entpackt das ZIP je nach Einstellung selbst, sonst genügt ein Doppelklick. " : "";
   return nested
     ? lead + "Kopiere den Inhalt in den Ordner, den du gewählt hast. Fragt dein System nach „Ersetzen“ oder „Zusammenführen“, wähle Zusammenführen, nie Ersetzen (am Mac erscheint es mit gehaltener Wahltaste)."
     : lead + "Kopiere die .xmp-Dateien in den Ordner mit den RAFs.";

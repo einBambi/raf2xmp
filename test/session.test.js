@@ -225,7 +225,10 @@ test("ZIP-Anleitung: flach oder mit Unterordnern, Safari nur bei Safari", () => 
   const nested = zipHint([ok(""), ok("2026/mai")]);
   assert.match(nested, /Zusammenführen/);
   assert.match(nested, /nie Ersetzen/);
-  assert.match(zipHint([ok("")], { safari: true }), /^Safari entpackt/);
+  const safari = zipHint([ok("")], { safari: true });
+  assert.match(safari, /^Safari entpackt das ZIP je nach Einstellung selbst, sonst genügt ein Doppelklick\. Kopiere die \.xmp-Dateien/);
+  assert.doesNotMatch(safari, /meist/); // das ZIP wird nicht versprochen: Safari entpackt nur, wenn die Einstellung es erlaubt
+  assert.match(zipHint([ok(""), ok("2026/mai")], { safari: true }), /^Safari entpackt das ZIP je nach Einstellung selbst, sonst genügt ein Doppelklick\. Kopiere den Inhalt/);
   assert.doesNotMatch(zipHint([{ kind: "skip", folder: "x", name: "B.RAF" }]), /Zusammenführen/); // nur geschriebene zaehlen
 });
 
