@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>raf2xmp · Jan Bambach</title>
+<meta name="description" content="Liest die Rezepte aus Fujifilm-RAFs und schreibt Lightroom-Sidecars (.xmp). Läuft im Browser, nichts wird hochgeladen.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="style.css">
+<script data-cfasync="false" type="module" src="js/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a href="/">Jan Bambach</a>
+  </header>
+
+  <main>
+    <h1>raf2xmp</h1>
+    <p class="lead">Liest die Rezepte aus deinen Fujifilm-RAFs und legt daneben XMP-Sidecars für Adobe Lightroom an, damit ein RAF dort dem JPG aus der Kamera nahekommt. Eine Annäherung, kein exaktes Abbild.</p>
+    <p class="meta">Alles passiert in deinem Browser, die Fotos werden nicht hochgeladen. Unabhängig von Fujifilm und Adobe.</p>
+
+    <noscript><p class="note">Die Seite braucht JavaScript, um die Dateien in deinem Browser zu lesen.</p></noscript>
+
+    <section id="start" class="stage">
+      <p id="blocked" class="note" tabindex="-1" hidden></p>
+      <div id="drop" class="drop">
+        <p class="big">RAF-Ordner hierher ziehen</p>
+        <p><button type="button" id="choose" class="btn">Ordner wählen</button></p>
+        <p class="fine">Unterordner werden mitgenommen. Pro Datei liest die Seite nur ein paar Kilobyte, nicht das ganze Bild. Dein Browser fragt womöglich, ob du Dateien „hochladen“ willst: Das ist sein Standardtext, die Seite lädt nichts hoch.</p>
+      </div>
+      <input type="file" id="pick" webkitdirectory hidden>
+    </section>
+
+    <section id="busy" class="stage" hidden>
+      <h2 tabindex="-1">Ordner wird durchsucht</h2>
+      <p id="busy-text" class="muted"></p>
+      <p><button type="button" id="busy-stop" class="linkbtn">abbrechen</button></p>
+    </section>
+
+    <section id="plan" class="stage" hidden>
+      <h2 tabindex="-1" id="plan-head"></h2>
+      <p id="plan-mode" class="muted"></p>
+      <fieldset class="opts">
+        <legend class="sr">Optionen</legend>
+        <label><input type="checkbox" id="o-overwrite"> <span>Vorhandene .xmp ersetzen<small id="o-overwrite-hint">Eine fremde (etwa von Lightroom) wird vorher als .xmp.bak gesichert.</small></span></label>
+        <label><input type="checkbox" id="o-crop" checked> <span>Zuschnitt übernehmen<small>Digital-Tele-Converter und Bildformat. Bei anderen Formaten als 3:2 ausschalten, falls Lightroom schon selbst zuschneidet.</small></span></label>
+        <label><input type="checkbox" id="o-lens" checked> <span>Objektivkorrektur der Kamera<small>Randabdunklung und Farbsäume, wie sie die Kamera herausrechnet.</small></span></label>
+      </fieldset>
+      <p class="actions">
+        <button type="button" id="go" class="btn">XMPs schreiben</button>
+        <button type="button" id="again" class="linkbtn">anderen Ordner wählen</button>
+        <button type="button" id="as-zip" class="linkbtn" hidden>lieber als ZIP</button>
+      </p>
+    </section>
+
+    <section id="run" class="stage" hidden>
+      <h2 tabindex="-1" id="run-head">Läuft</h2>
+      <progress id="bar" max="1" value="0" aria-labelledby="run-head"></progress>
+      <p id="run-text" class="muted"></p>
+      <p><button type="button" id="stop" class="linkbtn">abbrechen</button></p>
+    </section>
+
+    <section id="result" class="stage" hidden>
+      <h2 tabindex="-1" id="result-head"></h2>
+      <p id="result-sub" class="muted"></p>
+      <p id="zip-row" class="actions" hidden><button type="button" id="zip" class="btn"></button></p>
+      <p id="zip-hint" hidden></p>
+      <div id="callouts"></div>
+      <div id="groups"></div>
+      <p class="actions">
+        <button type="button" id="redo" class="btn quiet">Mit anderen Optionen wiederholen</button>
+        <button type="button" id="restart" class="linkbtn">anderen Ordner wählen</button>
+      </p>
+    </section>
+
+    <details class="limits">
+      <summary>Was wird übernommen, und wie genau?</summary>
+      <p>Übernommen werden die Filmsimulation (als Adobe-Profil oder Look), Farbe, Lichter und Schatten, Klarheit, Schärfe, Rauschminderung, Korn, Color Chrome Effect und FX Blue, die Schwarzweiß-Tonung, der Zuschnitt (Digital-Tele-Converter, Bildformat) und die Objektivkorrektur der Kamera. Der Weißabgleich bleibt „As Shot“, der Shift steckt schon in den Rohdaten.</p>
+      <p>Das sind Näherungen, keine exakten Abbilder. Gemessen wurde an 132 Kamera-JPGs einer X100VI aus 41 Aufnahmeserien. Am dichtesten belegt ist Classic Neg bei DR100 (105 Bilder, mittlerer Farbabstand zum Kamera-JPG ΔE 2,9). Classic Chrome (7 Bilder) und Monochrom mit Gelbfilter (8 Bilder) sind ebenfalls gegen Kamera-JPGs geprüft, alle übrigen Simulationen nur gegen Fujis RAW FILE CONVERTER. Bei anderen Kameras stimmen Profil und Richtung, die Feinwerte nicht unbedingt.</p>
+      <p>Nicht geprüft sind die Schwarzweiß-Tonung, andere Bildformate als 3:2 und Windows. Geprüft ist es mit dem neuen Lightroom und mit Lightroom Classic 15.6 unter macOS, zuletzt am 3. November 2026. Das Lesen der RAFs ist gegen ExifTool von Phil Harvey geprüft.</p>
+      <p>Für die vier Looks Classic Neg, Nostalgic Neg, Bleach Bypass und Sepia schreibt die Seite dieselben technischen Kennungen in die XMP, die Lightroom selbst schreibt. Eingebaut sind sie nur für die X100VI. Bei anderen Kameras lernt die Seite sie aus XMPs, die Lightroom neben die RAFs gelegt hat, sonst bleibt es beim Basisprofil PROVIA. Die eingebauten stehen gesammelt in <code>js/looks-data.js</code> und stammen aus den Look-Dateien, die Adobe mit Lightroom installiert. Dateien, Profile oder Tabellen von Adobe liefert die Seite nicht aus.</p>
+      <p>Die Dateien enthalten nur Einstellungen, nichts aus dem Foto selbst wie Ort oder Seriennummer. Was schon neben den RAFs liegt, bleibt unberührt, solange du „Vorhandene .xmp ersetzen“ nicht einschaltest. Eine fremde .xmp wird dann vorher als .xmp.bak gesichert.</p>
+      <p>Direkt in den Ordner schreiben können Chrome, Edge und manche andere Chromium-Browser. Safari und Firefox liefern die XMPs als ZIP. Chrome verweigert Systemordner sowie Downloads, Dokumente, Schreibtisch und den persönlichen Ordner selbst, deren Unterordner gehen. Liegen die RAFs nur online in iCloud Drive oder OneDrive, lädt das System sie womöglich komplett herunter, bevor die Seite sie liest. Beim Speichern prüft Chrome Dateien womöglich über Safe Browsing (Google). Das ist Sache des Browsers, die Seite selbst sendet nichts.</p>
+      <p>Lightroom liest die Sidecars beim ersten Import eines Ordners. Fotos, die schon im Katalog sind, übernehmen eine neue .xmp nicht von selbst: markieren und „Metadaten aus Dateien lesen“ wählen.</p>
+    </details>
+  </main>
+
+  <footer class="foot">
+    <p class="line">
+      <span>
+        <a class="kofi" href="https://ko-fi.com/T4P129ZMK6" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 4.5 6.4 4.5c2.1 0 3.6 1.1 5.6 3.3 2-2.2 3.5-3.3 5.6-3.3 3.7 0 5.5 3.9 4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+          Kaffee spendieren
+        </a>
+        <span class="aside" id="aside">freiwillig, ohne Gegenleistung</span>
+      </span>
+      <span class="links"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></span>
+    </p>
+    <p class="fine">raf2xmp ist ein unabhängiges, privates und kostenloses Hobbyprojekt und wird ohne Gewähr bereitgestellt. Es steht in keiner Verbindung zur FUJIFILM Corporation oder zu Adobe und wird von keinem der beiden unterstützt, geprüft oder empfohlen. Sichere deine Dateien vor der Nutzung und prüfe die erzeugten XMPs, bevor du sie einsetzt. Meine Haftung richtet sich nach den gesetzlichen Vorschriften.</p>
+    <p class="fine">Fujifilm, X100VI und die Namen der Filmsimulationen sind, soweit geschützt, Marken oder Bezeichnungen der FUJIFILM Corporation. Adobe, Lightroom, Lightroom Classic und XMP sind Marken oder eingetragene Marken von Adobe in den Vereinigten Staaten und/oder anderen Ländern. Die Namen stehen nur da, um zu beschreiben, womit das Werkzeug arbeitet.</p>
+    <p class="for">für Leon</p>
+  </footer>
+</div>
+<p id="live" class="sr" role="status" aria-live="polite"></p>
+</body>
+</html>
