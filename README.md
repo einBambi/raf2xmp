@@ -9,8 +9,8 @@ Alles läuft im Browser. Es gibt keinen Server, keinen Upload und kein Konto. Di
 <https://www.janbamba.ch/raf2xmp/>.
 
 Die Seite ist reines JavaScript ohne Framework und ohne Pakete von Dritten. Das Gegenstück auf der Kommandozeile ist ein
-Python-Werkzeug (bisher unter dem Namen `fuji2xmp`, es gehört nicht zu diesem Repository), dessen Rechenkern die Seite Zeile für
-Zeile nachbildet. Eine bewusste Abweichung steht unter „Grenzen“.
+Python-Werkzeug `raf2xmp.py` (bis zum 03.11.2026 unter dem Namen `fuji2xmp`, es gehört nicht zu diesem Repository), dessen
+Rechenkern die Seite Zeile für Zeile nachbildet. Eine bewusste Abweichung steht unter „Grenzen“.
 
 ## Zusagen und wie sie geprüft werden
 
@@ -72,8 +72,8 @@ python3 tools/build.py --out dist
 selbst:
 
 * Ist **ExifTool** installiert, vergleichen die Tests den Leser mit ExifTool, auf erfundenen RAFs und auf dem Prüfstück.
-* Zeigt `F2X_TOOL` auf das **Python-Werkzeug** (`fuji2xmp.py`), vergleichen sie zusätzlich den Rechenkern Zeichen für Zeichen mit
-  Python, auch auf Zufallsangaben. Ohne Angabe sucht `test/helpers.js` unter `../fuji2xmp/fuji2xmp.py`.
+* Zeigt `F2X_TOOL` auf das **Python-Werkzeug** (`raf2xmp.py`), vergleichen sie zusätzlich den Rechenkern Zeichen für Zeichen mit
+  Python, auch auf Zufallsangaben. Ohne Angabe sucht `test/helpers.js` unter `../raf2xmp/raf2xmp.py`.
 
 Weitere Umgebungsvariablen, alle optional:
 
@@ -97,7 +97,7 @@ Python-Werkzeugs. Gebraucht werden Chrome unter macOS, Node ab 22, `unzip` und v
 Seite und Werkzeug ab). Die Seite liefert keine Adobe-Digests, deshalb entsteht die Vorlage mit `--no-digest`:
 
 ```bash
-python3 /pfad/zu/fuji2xmp.py --no-digest --out /pfad/vorbild /pfad/raws
+python3 /pfad/zu/raf2xmp.py --no-digest --out /pfad/vorbild /pfad/raws
 python3 tools/serve.py &
 node tools/e2e-chrome.mjs http://localhost:4173/raf2xmp/ /pfad/raws /pfad/vorbild /pfad/arbeit
 ```
@@ -112,8 +112,8 @@ Die Kennungen der vier Looks für die X100VI liegen gebündelt in `site/js/looks
 aus den Look-Dateien, die Adobe mit Lightroom installiert, und braucht dafür das Python-Werkzeug:
 
 ```bash
-python3 tools/make_looks.py --tool /pfad/zu/fuji2xmp.py --models X100VI
-python3 tools/make_looks.py --tool /pfad/zu/fuji2xmp.py --models X100VI --python-json test/data/looks-public.json
+python3 tools/make_looks.py --tool /pfad/zu/raf2xmp.py --models X100VI
+python3 tools/make_looks.py --tool /pfad/zu/raf2xmp.py --models X100VI --python-json test/data/looks-public.json
 ```
 
 Die Datei fällt nicht unter die Projektlizenz (siehe `NOTICE.md`). Muss sie einmal weg, genügt eine leere Liste
@@ -169,7 +169,8 @@ Vor jedem größeren Update einmal durchgehen:
   kommt dort auf 1,0. Das ist gewollt, in `site/js/core.js` (`num`) begründet und in `test/pyref.py` für den Vergleich
   ausgeglichen.
 * Kennung in den XMPs: Die Seite schreibt `x:xmptk="raf2xmp"` und erkennt daneben die alte Kennung `fuji2xmp` als eigene. Das
-  Python-Werkzeug kennt bisher nur die alte, eine XMP von der Seite gilt dort als fremd und wird vor dem Ersetzen gesichert.
+  Python-Werkzeug schreibt seit dem 03.11.2026 dieselbe Kennung und erkennt ebenfalls beide, XMPs der Seite und des Werkzeugs
+  gelten also füreinander als eigene.
 * Der Leser arbeitet mit Tag-Nummern und eigenen Wertetabellen, nicht mit den Bezeichnungen von ExifTool. Umbenennungen in
   neuen ExifTool-Versionen können ihn deshalb nicht verwirren. Verglichen ist er mit ExifTool 13.55.
 * Direktes Schreiben kann von außen gesperrt sein (Richtlinie der Firma, Einstellung der Website, Gast- oder Profilmodus). Dann

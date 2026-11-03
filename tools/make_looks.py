@@ -22,7 +22,7 @@ DEFAULT_ADOBE = "/Library/Application Support/Adobe/CameraRaw/Settings/Adobe/Pro
 
 
 def load_tool(path):
-    spec = importlib.util.spec_from_file_location("fuji2xmp", str(path))
+    spec = importlib.util.spec_from_file_location("raf2xmp", str(path))
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
@@ -31,7 +31,7 @@ def load_tool(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--adobe", default=DEFAULT_ADOBE, help="Ordner Camera/Fujifilm der Adobe-Installation")
-    ap.add_argument("--tool", default=str(ROOT.parent / "fuji2xmp" / "fuji2xmp.py"), help="Pfad zu fuji2xmp.py (fuer parse_look_preset)")
+    ap.add_argument("--tool", default=str(ROOT.parent / "raf2xmp" / "raf2xmp.py"), help="Pfad zu raf2xmp.py (fuer parse_look_preset)")
     ap.add_argument("--models", default="X100VI", help="Kameras, kommagetrennt (Schreibweise egal), oder 'alle'")
     ap.add_argument("--out", default=str(ROOT / "site" / "js" / "looks-data.js"))
     ap.add_argument("--python-json", help="zusaetzlich eine profiles.json im Stil des Python-Werkzeugs schreiben (nur fuer Tests)")

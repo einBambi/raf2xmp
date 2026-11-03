@@ -4,7 +4,7 @@
 //
 // Aufruf: node tools/e2e-chrome.mjs <Seite> <RAF-Ordner> <Ordner mit Vorbild-XMPs> <Arbeitsordner>
 //   Seite     etwa http://localhost:4173/raf2xmp/ (python3 tools/serve.py) oder die echte Adresse
-//   Vorbild   python3 <Pfad zu fuji2xmp.py> --no-digest --out <Ordner> <RAF-Ordner>  (die Seite liefert keine Adobe-Digests)
+//   Vorbild   python3 <Pfad zu raf2xmp.py> --no-digest --out <Ordner> <RAF-Ordner>  (die Seite liefert keine Adobe-Digests)
 //   Arbeit    leerer Ordner fuer das Wegwerfprofil und die ZIPs, wird nicht aufgeraeumt
 // Gebraucht: Node ab 22 (WebSocket eingebaut), Google Chrome unter macOS, unzip. Die RAFs muessen vollstaendig sein (abgeschnittene
 // Dateien lehnen Seite und Werkzeug ab). Ausgabe ist ein JSON-Bericht. Der echte Auswahldialog und die Berechtigungsabfrage bleiben Handarbeit.
@@ -60,6 +60,7 @@ function connect(url) {
   });
 }
 
+// aeltere Staende des Python-Werkzeugs schrieben noch die alte Kennung, die gleichen wir an
 const norm = (t) => t.replaceAll('x:xmptk="fuji2xmp"', 'x:xmptk="raf2xmp"');
 
 function compare(got /* Map name -> text */, label) {

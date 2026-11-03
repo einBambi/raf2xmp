@@ -9,7 +9,7 @@ Everything runs in the browser. There is no server, no upload and no account. Th
 <https://www.janbamba.ch/raf2xmp/>.
 
 The page is plain JavaScript without a framework and without third-party packages. The command-line counterpart is a Python tool
-(previously named `fuji2xmp`, it is not part of this repository), whose calculation core the page reproduces line by line. One
+`raf2xmp.py` (named `fuji2xmp` until 3 November 2026, it is not part of this repository), whose calculation core the page reproduces line by line. One
 deliberate deviation is listed under "Limits".
 
 This file is a translation of [README.md](README.md). The page itself, `NOTICE.md` and `SECURITY.md` are in German. If the two
@@ -74,8 +74,8 @@ python3 tools/build.py --out dist
 `npm test` runs all tests with Node's test runner. Tests that need more than Node and Python skip themselves:
 
 * If **ExifTool** is installed, the tests compare the reader with ExifTool, on invented RAFs and on the included test file.
-* If `F2X_TOOL` points to the **Python tool** (`fuji2xmp.py`), they also compare the calculation core with Python character by
-  character, including on random inputs. Without it, `test/helpers.js` looks under `../fuji2xmp/fuji2xmp.py`.
+* If `F2X_TOOL` points to the **Python tool** (`raf2xmp.py`), they also compare the calculation core with Python character by
+  character, including on random inputs. Without it, `test/helpers.js` looks under `../raf2xmp/raf2xmp.py`.
 
 More environment variables, all optional:
 
@@ -99,7 +99,7 @@ Python tool. You need Chrome on macOS, Node 22 or newer, `unzip` and complete, r
 and by the tool). The page produces no Adobe digests, so the reference is made with `--no-digest`:
 
 ```bash
-python3 /path/to/fuji2xmp.py --no-digest --out /path/to/reference /path/to/raws
+python3 /path/to/raf2xmp.py --no-digest --out /path/to/reference /path/to/raws
 python3 tools/serve.py &
 node tools/e2e-chrome.mjs http://localhost:4173/raf2xmp/ /path/to/raws /path/to/reference /path/to/work
 ```
@@ -114,8 +114,8 @@ The identifiers of the four Looks for the X100VI are bundled in `site/js/looks-d
 from the Look files that Adobe installs with Lightroom, and needs the Python tool for that:
 
 ```bash
-python3 tools/make_looks.py --tool /path/to/fuji2xmp.py --models X100VI
-python3 tools/make_looks.py --tool /path/to/fuji2xmp.py --models X100VI --python-json test/data/looks-public.json
+python3 tools/make_looks.py --tool /path/to/raf2xmp.py --models X100VI
+python3 tools/make_looks.py --tool /path/to/raf2xmp.py --models X100VI --python-json test/data/looks-public.json
 ```
 
 The file is not covered by the project license (see `NOTICE.md`). If it ever has to go, an empty list
@@ -172,8 +172,8 @@ Go through this once before every larger update. The labels in quotes are the Ge
 * Difference from the Python tool: for exposure compensation the page reads fractions such as "+1/2" as 0.5, the Python tool
   arrives at 1.0 there. This is intended, explained in `site/js/core.js` (`num`) and compensated in `test/pyref.py` for the
   comparison.
-* Marker in the XMPs: the page writes `x:xmptk="raf2xmp"` and also recognizes the old marker `fuji2xmp` as its own. So far the
-  Python tool knows only the old one, so an XMP from the page counts as foreign there and is backed up before it is replaced.
+* Marker in the XMPs: the page writes `x:xmptk="raf2xmp"` and also recognizes the old marker `fuji2xmp` as its own. Since 3 November
+  2026 the Python tool writes the same marker and also recognizes both, so XMPs from the page and from the tool count as its own on either side.
 * The reader works with tag numbers and its own value tables, not with ExifTool's names. Renames in new ExifTool versions
   therefore cannot confuse it. It has been compared with ExifTool 13.55.
 * Direct writing can be blocked from outside (company policy, a site setting, guest or profile mode). Then the page offers the ZIP

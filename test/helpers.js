@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 
 export const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.dirname(HERE);
-export const TOOL = process.env.F2X_TOOL || path.join(ROOT, "..", "fuji2xmp", "fuji2xmp.py");
+export const TOOL = process.env.F2X_TOOL || path.join(ROOT, "..", "raf2xmp", "raf2xmp.py");
 export const PYTHON = process.env.F2X_PYTHON || "python3";
 
 export const toolAvailable = fs.existsSync(TOOL);

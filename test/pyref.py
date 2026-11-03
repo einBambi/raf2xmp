@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Rechnet Kameraangaben mit dem Python-Werkzeug (fuji2xmp.py) durch und gibt die XMPs als JSON aus. Vergleichsstelle fuer die Tests.
+"""Rechnet Kameraangaben mit dem Python-Werkzeug (raf2xmp.py) durch und gibt die XMPs als JSON aus. Vergleichsstelle fuer die Tests.
 
 Stdin:  {"cases": [{"d": {...exiftool-Dict...}, "opts": {"film": null, "neutral": false, ...}}], "db": {...profiles.json-Stil...}}
 Stdout: Liste mit {"xmp", "notes", "film", "noLook"} oder {"error"}.
 
-Drei Abweichungen vom Werkzeug, alle gewollt: find_look ist abgeschaltet (die Seite kennt die Adobe-Dateien des Rechners nicht, nur
-die mitgelieferten Kennungen), num() liest Brueche wie "+1/2" als Bruch (Python liest dort nur die 1, siehe core.js), und die
-Kennung x:xmptk heisst hier raf2xmp (die Seite schreibt den neuen Namen, das Python-Werkzeug noch den alten).
+Zwei Abweichungen vom Werkzeug, beide gewollt: find_look ist abgeschaltet (die Seite kennt die Adobe-Dateien des Rechners nicht, nur
+die mitgelieferten Kennungen), und num() liest Brueche wie "+1/2" als Bruch (Python liest dort nur die 1, siehe core.js).
+Aeltere Staende des Werkzeugs schrieben noch x:xmptk="fuji2xmp", das wird unten angegelichen.
 """
 
 import importlib.util
@@ -17,7 +17,7 @@ import types
 
 
 def load_tool(path):
-    spec = importlib.util.spec_from_file_location("fuji2xmp", path)
+    spec = importlib.util.spec_from_file_location("raf2xmp", path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
