@@ -1,0 +1,26 @@
+{
+ "Camera BLEACH BYPASS": {
+  "profile": "Camera PROVIA/Standard",
+  "grayscale": false,
+  "model": "Fujifilm X100VI",
+  "look": "<crs:Look>\n    <rdf:Description\n     crs:Name=\"Camera BLEACH BYPASS\"\n     crs:Amount=\"1\"\n     crs:UUID=\"36960E405DDB45C1890E7CD37724DBFD\"\n     crs:SupportsAmount=\"false\"\n     crs:SupportsMonochrome=\"false\"\n     crs:SupportsOutputReferred=\"false\"\n     crs:CameraModelRestriction=\"Fujifilm X100VI\">\n    <crs:Group>\n     <rdf:Alt>\n      <rdf:li xml:lang=\"x-default\">Profiles</rdf:li>\n     </rdf:Alt>\n    </crs:Group>\n    <crs:Parameters\n     crs:Version=\"18.7\"\n     crs:ProcessVersion=\"15.4\"\n     crs:ConvertToGrayscale=\"False\"\n     crs:CameraProfile=\"Camera PROVIA/Standard\"\n     crs:RGBTable=\"DC04742AF48C48C8D8A1BB8A758592AB\"/>\n    </rdf:Description>\n   </crs:Look>"
+ },
+ "Camera CLASSIC Neg": {
+  "profile": "Camera PROVIA/Standard",
+  "grayscale": false,
+  "model": "Fujifilm X100VI",
+  "look": "<crs:Look>\n    <rdf:Description\n     crs:Name=\"Camera CLASSIC Neg\"\n     crs:Amount=\"1\"\n     crs:UUID=\"28BE06D14C9C42B2A039AA2E470AC2C5\"\n     crs:SupportsAmount=\"false\"\n     crs:SupportsMonochrome=\"false\"\n     crs:SupportsOutputReferred=\"false\"\n     crs:CameraModelRestriction=\"Fujifilm X100VI\">\n    <crs:Group>\n     <rdf:Alt>\n      <rdf:li xml:lang=\"x-default\">Profiles</rdf:li>\n     </rdf:Alt>\n    </crs:Group>\n    <crs:Parameters\n     crs:Version=\"18.7\"\n     crs:ProcessVersion=\"15.4\"\n     crs:ConvertToGrayscale=\"False\"\n     crs:CameraProfile=\"Camera PROVIA/Standard\"\n     crs:RGBTable=\"FF464EAD00BC484FF7242A5615F1FE4A\"/>\n    </rdf:Description>\n   </crs:Look>"
+ },
+ "Camera NOSTALGIC Neg": {
+  "profile": "Camera PROVIA/Standard",
+  "grayscale": false,
+  "model": "Fujifilm X100VI",
+  "look": "<crs:Look>\n    <rdf:Description\n     crs:Name=\"Camera NOSTALGIC Neg\"\n     crs:Amount=\"1\"\n     crs:UUID=\"C6C08958AF7B4D3BA529FA6B27584510\"\n     crs:SupportsAmount=\"false\"\n     crs:SupportsMonochrome=\"false\"\n     crs:SupportsOutputReferred=\"false\"\n     crs:CameraModelRestriction=\"Fujifilm X100VI\">\n    <crs:Group>\n     <rdf:Alt>\n      <rdf:li xml:lang=\"x-default\">Profiles</rdf:li>\n     </rdf:Alt>\n    </crs:Group>\n    <crs:Parameters\n     crs:Version=\"18.7\"\n     crs:ProcessVersion=\"15.4\"\n     crs:ConvertToGrayscale=\"False\"\n     crs:CameraProfile=\"Camera PROVIA/Standard\"\n     crs:RGBTable=\"D2586BEC87DD7D2E326BE4EE7F1D91AB\"/>\n    </rdf:Description>\n   </crs:Look>"
+ },
+ "Camera Sepia": {
+  "profile": "Camera PROVIA/Standard",
+  "grayscale": false,
+  "model": "Fujifilm X100VI",
+  "look": "<crs:Look>\n    <rdf:Description\n     crs:Name=\"Camera Sepia\"\n     crs:Amount=\"1\"\n     crs:UUID=\"9A2C0BA134484518B1418CC07DBB5CC3\"\n     crs:SupportsAmount=\"false\"\n     crs:SupportsMonochrome=\"false\"\n     crs:SupportsOutputReferred=\"false\"\n     crs:CameraModelRestriction=\"Fujifilm X100VI\">\n    <crs:Group>\n     <rdf:Alt>\n      <rdf:li xml:lang=\"x-default\">Profiles</rdf:li>\n     </rdf:Alt>\n    </crs:Group>\n    <crs:Parameters\n     crs:Version=\"18.7\"\n     crs:ProcessVersion=\"15.4\"\n     crs:ConvertToGrayscale=\"False\"\n     crs:CameraProfile=\"Camera PROVIA/Standard\"\n     crs:RGBTable=\"C154DAFBF59D3DA4EB18D58FF0771789\"/>\n    </rdf:Description>\n   </crs:Look>"
+ }
+}

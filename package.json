@@ -1,0 +1,13 @@
+{
+  "name": "raf2xmp-web",
+  "description": "Liest die Rezepte aus Fujifilm-RAFs und schreibt Lightroom-Sidecars (.xmp), alles im Browser",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  }
+}
