@@ -1,0 +1,49 @@
+name: Missing camera or look identifiers
+description: Report a camera model or Fujifilm look for which raf2xmp has no Adobe identifiers
+title: "[identifiers] camera model, look name"
+labels: ["identifiers"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not attach RAF files, JPEGs or complete XMP files. A complete sidecar can contain
+        serial numbers, GPS position, time stamps and file names. Paste only the block described below.
+  - type: input
+    id: camera
+    attributes:
+      label: Camera model as the camera reports it (for example X100VI)
+    validations:
+      required: true
+  - type: input
+    id: lightroom
+    attributes:
+      label: Lightroom app and version (cloud app or Classic)
+  - type: dropdown
+    id: look
+    attributes:
+      label: Look or profile
+      options:
+        - Classic Neg.
+        - Nostalgic Neg.
+        - Bleach Bypass
+        - Sepia
+        - Other (name it in the block)
+    validations:
+      required: true
+  - type: textarea
+    id: block
+    attributes:
+      label: The crs:Look block from your own sidecar
+      description: Open the XMP sidecar that your own Lightroom wrote after you applied the look. Copy only the element from the opening crs:Look tag to the closing crs:Look tag. Nothing else.
+      render: xml
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checks
+      options:
+        - label: I copied only the crs:Look block. It contains no serial number, GPS position, date, file name or folder path.
+          required: true
+        - label: The block was written by my own copy of Lightroom for my own photo.
+          required: true
