@@ -21,7 +21,7 @@ READMEs ever differ, the German one is the one that is kept up to date.
 | --- | --- |
 | The photos never leave the computer, the page connects to nothing | Content Security Policy with `connect-src 'none'` and `default-src 'none'` (`site/_headers`); the test `test/privacy.test.js` scans the source for `fetch`, `XMLHttpRequest`, `sendBeacon`, WebSocket, Worker and outbound addresses |
 | Nothing is stored in the browser | the same test looks for `localStorage`, `sessionStorage`, `indexedDB`, `document.cookie`, the Cache API and service workers; the picker dialog is given no `id`, folders are not remembered |
-| No third parties | no fonts, scripts or images from elsewhere; the test checks the page for foreign addresses (only the Ko-fi link is allowed) |
+| No third parties | no fonts, scripts or images from elsewhere; the test checks the page for foreign addresses (only the Ko-fi link and the link to the source code are allowed) |
 | The XMPs contain only the recipe | the file consists of `crs:` settings, no location, no serial number, no shooting data |
 | Existing files are not overwritten | the default is to skip. Before every write the page looks into the folder once more (`DirectSink.probe`, `put(..., { mustBeNew })`), so even an .xmp that Lightroom creates only during the run is never replaced without a backup. When replacing, a foreign .xmp is first saved as `.xmp.bak` (`.xmp.bak2` and so on if that name is taken), one of its own is replaced without a backup. Names count as equal the way they do on a Mac: regardless of case and in both Unicode spellings |
 
@@ -128,7 +128,7 @@ format of Cloudflare Pages). Behind every file name there is a version id (`?v=.
 new modules from coming out of the cache mixed after an update.
 
 `site/index.html` is the page of janbamba.ch: header, Ko-fi link, footer, favicon and the links to the imprint and the privacy
-policy point to that domain. Whoever runs the page themselves replaces those places with their own. On servers other than
+policy point to that domain, the source link points to this repository. Whoever runs the page themselves replaces those places with their own. On servers other than
 Cloudflare Pages, the headers from `site/_headers` belong into their configuration, above all the Content Security Policy on which
 the guarantees above rest.
 

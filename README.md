@@ -18,7 +18,7 @@ Zeile nachbildet. Eine bewusste Abweichung steht unter „Grenzen“.
 | --- | --- |
 | Die Fotos verlassen den Rechner nicht, die Seite verbindet sich mit nichts | Content Security Policy mit `connect-src 'none'` und `default-src 'none'` (`site/_headers`), Test `test/privacy.test.js` sucht im Quelltext nach `fetch`, `XMLHttpRequest`, `sendBeacon`, WebSocket, Worker und Adressen nach draußen |
 | Es wird nichts im Browser gespeichert | derselbe Test sucht nach `localStorage`, `sessionStorage`, `indexedDB`, `document.cookie`, Cache API, Service Worker; dem Auswahldialog wird keine `id` mitgegeben, Ordner werden nicht gemerkt |
-| Keine Dritten | keine Schriften, Skripte oder Bilder von anderswo, der Test prüft die Seite auf fremde Adressen (erlaubt ist nur der Ko-fi-Link) |
+| Keine Dritten | keine Schriften, Skripte oder Bilder von anderswo, der Test prüft die Seite auf fremde Adressen (erlaubt sind nur der Ko-fi-Link und der Link auf den Quelltext) |
 | In den XMPs steht nur das Rezept | die Datei besteht aus `crs:`-Einstellungen, kein Ort, keine Seriennummer, keine Aufnahmedaten |
 | Vorhandenes wird nicht überschrieben | Vorgabe ist Überspringen. Vor jedem Schreiben schaut die Seite noch einmal im Ordner nach (`DirectSink.probe`, `put(..., { mustBeNew })`), damit auch eine .xmp, die Lightroom erst während des Laufs anlegt, nie ohne Sicherung ersetzt wird. Beim Ersetzen wird eine fremde .xmp vorher als `.xmp.bak` (bei Belegung `.xmp.bak2` und so weiter) gesichert, eine eigene ohne Sicherung ersetzt. Namen gelten wie auf dem Mac ohne Groß-Klein und in beiden Unicode-Schreibweisen als gleich |
 
@@ -126,7 +126,7 @@ Format von Cloudflare Pages). Hinter jedem Dateinamen steht eine Versionskennung
 verhindert, dass nach einem Update alte und neue Module gemischt aus dem Zwischenspeicher kommen.
 
 `site/index.html` ist die Seite von janbamba.ch: Kopfzeile, Ko-fi-Link, Fußzeile, Favicon sowie die Links auf Impressum und
-Datenschutz verweisen auf diese Domain. Wer die Seite selbst betreibt, ersetzt diese Stellen durch die eigenen. Auf anderen
+Datenschutz verweisen auf diese Domain, der Quelltext-Link auf dieses Repository. Wer die Seite selbst betreibt, ersetzt diese Stellen durch die eigenen. Auf anderen
 Servern als Cloudflare Pages gehören die Kopfzeilen aus `site/_headers` in deren Konfiguration, allen voran die Content Security
 Policy, auf der die Zusagen oben beruhen.
 

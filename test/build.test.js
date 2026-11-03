@@ -26,6 +26,8 @@ test("Bau: Kennung an jedem Import, am Stylesheet und am Skript", () => {
   assert.ok(html.includes(`src="js/app.js?v=${v}"`));
   assert.ok(html.includes('href="https://ko-fi.com/'), "Links nach draussen bleiben unberuehrt");
   assert.ok(!/ko-fi\.com[^"]*\?v=/.test(html));
+  assert.ok(html.includes('href="https://github.com/einBambi/raf2xmp"'), "Link zum Quelltext bleibt unberuehrt");
+  assert.ok(!/github\.com[^"]*\?v=/.test(html));
   let imports = 0;
   for (const f of walk(path.join(out, "raf2xmp/js"))) {
     const text = fs.readFileSync(f, "utf8");

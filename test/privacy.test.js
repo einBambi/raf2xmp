@@ -47,11 +47,19 @@ test("Gemerkt wird nichts: der Auswahldialog bekommt keine id, es gibt keine ges
   assert.ok(!/\bhandle\b[^;\n]*\.(?:put|set)\(/.test(app));
 });
 
-test("Seite: aussen nur Ko-fi, kein Skript, Bild, Rahmen oder Formular von anderswo", () => {
+// Die zwei Links nach draussen, die es gibt: das Trinkgeld und der Quelltext dieser Seite
+const KOFI = /^https:\/\/ko-fi\.com\//;
+const SOURCE = "https://github.com/einBambi/raf2xmp";
+
+test("Seite: aussen nur Ko-fi und der Quelltext, kein Skript, Bild, Rahmen oder Formular von anderswo", () => {
   const html = read("index.html");
-  const external = [...html.matchAll(/\b(?:href|src|action)="(https?:[^"]+)"/g)].map((m) => m[1]);
+  const external = [...html.matchAll(/\b(href|src|action)="(https?:[^"]+)"/g)].map((m) => [m[1], m[2]]);
   assert.ok(external.length >= 1);
-  for (const u of external) assert.match(u, /^https:\/\/ko-fi\.com\//, u);
+  for (const [attr, u] of external) {
+    assert.equal(attr, "href", "von anderswo darf nur ein Link kommen: " + u);
+    assert.ok(KOFI.test(u) || u === SOURCE, u);
+  }
+  assert.ok(external.some(([, u]) => u === SOURCE), "Link zum Quelltext fehlt");
   assert.ok(!/<(?:iframe|object|embed|form|img)\b/i.test(html));
   assert.ok(!/<script\b(?![^>]*\bsrc=)/i.test(html), "kein Skript im Text der Seite");
   assert.ok(!/<link\b[^>]*\b(?:preconnect|prefetch|dns-prefetch|preload)\b/i.test(html));
