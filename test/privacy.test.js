@@ -37,9 +37,19 @@ const FORBIDDEN = [
 for (const f of jsFiles) {
   test(`Kein Netz und kein Browserspeicher in js/${f}`, () => {
     const text = code(read("js/" + f));
-    for (const [re, what] of FORBIDDEN) assert.ok(!re.test(text), `${f} enthaelt ${what}`);
+    for (const [re, what] of FORBIDDEN) {
+      // theme.js liest (nur lesen) die Hell/Dunkel-Wahl der Sitzung von janbamba.ch
+      if (f === "theme.js" && what === "sessionStorage") continue;
+      assert.ok(!re.test(text), `${f} enthaelt ${what}`);
+    }
   });
 }
+
+test("theme.js liest nur die Sitzungswahl, schreibt nichts", () => {
+  const text = code(read("js/theme.js"));
+  assert.ok(!/setItem|removeItem|clear\s*\(|localStorage/.test(text));
+  assert.ok(/getItem\(\s*'theme'\s*\)/.test(text));
+});
 
 test("Gemerkt wird nichts: der Auswahldialog bekommt keine id, es gibt keine gespeicherten Handles", () => {
   const app = code(read("js/app.js"));

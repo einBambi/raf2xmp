@@ -1,4 +1,4 @@
-/* Gleiche Farben und Schrift wie janbamba.ch, ohne Schriftdateien und ohne Skripte fuer den Dunkelmodus (der folgt dem System). */
+/* Gleiche Farben und Schrift wie janbamba.ch, ohne Schriftdateien und Dunkelmodus folgt dem System oder der Wahl auf janbamba.ch (js/theme.js). */
 
 :root {
   color-scheme: light dark;
@@ -14,8 +14,20 @@
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
 }
 
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0c0c0d;
+  --fg: #f2f2f2;
+  --muted: #9a9a9a;
+  --line: #242427;
+  --line-strong: #44444a;
+  --ui-border: #7a7a80;
+  --err: #ff8f86;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #0c0c0d;
     --fg: #f2f2f2;
     --muted: #9a9a9a;
